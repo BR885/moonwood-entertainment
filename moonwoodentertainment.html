@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonwood Entertainment - Premier Kenyan Casting Agency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4A49B8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #5D5CDE 0%, #4A49B8 100%);
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .modal-backdrop {
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white smooth-scroll">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-primary">Moonwood Entertainment</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Home</a>
+                        <a href="#services" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Services</a>
+                        <a href="#about" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">About</a>
+                        <a href="#talents" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Talents</a>
+                        <a href="#projects" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Projects</a>
+                        <a href="#contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Contact</a>
+                        <a href="#blog" class="nav-link px-3 py-2 rounded-md text-sm font-medium hover:text-primary transition-colors">Blog</a>
+                        <button id="loginBtn" class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">Login</button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-500 hover:text-primary">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">Home</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">Services</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">About</a>
+                <a href="#talents" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">Talents</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">Contact</a>
+                <a href="#blog" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary transition-colors">Blog</a>
+                <button id="mobileLoginBtn" class="w-full mt-2 bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-base font-medium transition-colors">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Trending Section (Only visible when logged in) -->
+    <div id="trendingSection" class="hidden fixed top-16 w-full bg-gradient-to-r from-primary to-primary-dark text-white py-2 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-fire text-yellow-300"></i>
+                    <span class="text-sm font-medium">Trending:</span>
+                    <div id="trendingContent" class="text-sm">
+                        New casting call for Showmax series • Kenyan film wins international award • Acting workshop this weekend
+                    </div>
+                </div>
+                <button id="closeTrending" class="text-white/80 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center gradient-bg overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 fade-in">Moonwood Entertainment</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto fade-in">Premier casting agency and marketing firm dedicated to showcasing Kenyan talent and film to the world</p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center fade-in">
+                <a href="#services" class="inline-block bg-white text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">Our Services</a>
+                <a href="#contact" class="inline-block border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-primary transition-colors">Get In Touch</a>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 fade-in">Our Value Proposition</h2>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto fade-in">
+                At Moonwood Entertainment, we value creativity, innovation, and passion. We're committed to providing exceptional service to our clients and talent, ensuring that every project exceeds expectations.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Our Services</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Comprehensive solutions for talent development and production</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-3xl mb-4"><i class="fas fa-users"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Casting</h3>
+                    <p class="text-gray-600 dark:text-gray-300">We source and cast talent for various productions, including TV shows, music videos, commercials, and more.</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-3xl mb-4"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Model Coaching</h3>
+                    <p class="text-gray-600 dark:text-gray-300">We provide personalized coaching and training to help models and actors refine their craft and achieve their goals.</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-3xl mb-4"><i class="fas fa-graduation-cap"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Training</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Industry-leading training programs for aspiring models and actors, covering audition techniques, acting skills, and industry insights.</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-3xl mb-4"><i class="fas fa-theater-masks"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Professional Acting</h3>
+                    <p class="text-gray-600 dark:text-gray-300">We work with experienced actors and models who are dedicated to delivering high-quality performances.</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-3xl mb-4"><i class="fas fa-video"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Production</h3>
+                    <p class="text-gray-600 dark:text-gray-300">We collaborate with production companies to bring our clients' visions to life.</p>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-3xl mb-4"><i class="fas fa-bullhorn"></i></div>
+                    <h3 class="text-xl font-semibold mb-3">Marketing</h3>
+                    <p class="text-gray-600 dark:text-gray-300">We promote Kenyan film and talent through various channels, including social media, posters, and advertising.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">About Moonwood Entertainment</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Seasoned professionals with a passion for discovering and nurturing talent</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <p class="text-lg mb-6">We're a team of seasoned professionals with a passion for discovering and nurturing talent. Our agency has cast talent for several notable productions, creating opportunities that showcase the best of Kenyan entertainment.</p>
+                    <p class="text-lg mb-6">Our commitment to excellence has led us to work on prestigious projects and build lasting relationships with both emerging and established talent in the industry.</p>
+                    <div class="bg-white dark:bg-gray-700 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4">Notable Productions</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Mr. Right TV show</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Music videos</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Television commercials</li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i> Advertising campaigns</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <div class="bg-gradient-to-r from-primary to-primary-dark p-8 rounded-lg text-white">
+                        <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+                        <p class="text-lg mb-4">To discover, develop, and showcase exceptional Kenyan talent while creating compelling content that resonates with audiences worldwide.</p>
+                        <div class="grid grid-cols-3 gap-4 mt-8">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold">50+</div>
+                                <div class="text-sm">Talents Managed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold">100+</div>
+                                <div class="text-sm">Projects Completed</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold">5+</div>
+                                <div class="text-sm">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talents Section -->
+    <section id="talents" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Our Talents</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Meet the exceptional artists we represent</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center fade-in">
+                    <div class="w-48 h-48 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Featured Artist 1</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Actor • Model</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="w-48 h-48 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Featured Artist 2</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Model • Presenter</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="w-48 h-48 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Featured Artist 3</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Actor • Voice Artist</p>
+                </div>
+                <div class="text-center fade-in">
+                    <div class="w-48 h-48 mx-auto bg-gray-200 dark:bg-gray-700 rounded-full mb-4 flex items-center justify-center">
+                        <i class="fas fa-user text-4xl text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Featured Artist 4</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Model • Dancer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Our Projects</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Featured on leading platforms and channels</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-primary text-4xl mb-4"><i class="fas fa-tv"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Showmax</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Premium African content platform</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-red-600 text-4xl mb-4"><i class="fab fa-netflix"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Netflix</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Global streaming platform</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-purple-600 text-4xl mb-4"><i class="fas fa-magic"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Maisha Magic</h3>
+                    <p class="text-gray-600 dark:text-gray-300">East African entertainment</p>
+                </div>
+                <div class="bg-white dark:bg-gray-700 p-6 rounded-lg text-center hover:shadow-lg transition-shadow fade-in">
+                    <div class="text-blue-600 text-4xl mb-4"><i class="fas fa-broadcast-tower"></i></div>
+                    <h3 class="text-xl font-semibold mb-2">Local TV</h3>
+                    <p class="text-gray-600 dark:text-gray-300">National television networks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Film Marketing Section -->
+    <section class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Film Marketing</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Promoting Kenyan film and talent worldwide</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg fade-in">
+                    <h3 class="text-xl font-semibold mb-4">Poster & Advertising</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Creative promotional materials for Kenyan films</p>
+                    <div class="bg-gray-200 dark:bg-gray-700 h-40 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-image text-3xl text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg fade-in">
+                    <h3 class="text-xl font-semibold mb-4">Social Media</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Digital promotion for talent and productions</p>
+                    <div class="flex space-x-4">
+                        <div class="text-blue-600 text-2xl"><i class="fab fa-facebook"></i></div>
+                        <div class="text-blue-400 text-2xl"><i class="fab fa-twitter"></i></div>
+                        <div class="text-pink-600 text-2xl"><i class="fab fa-instagram"></i></div>
+                        <div class="text-green-600 text-2xl"><i class="fab fa-whatsapp"></i></div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg fade-in">
+                    <h3 class="text-xl font-semibold mb-4">Behind the Scenes</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">Casting director stories and production insights</p>
+                    <div class="bg-gray-200 dark:bg-gray-700 h-40 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-camera text-3xl text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Get In Touch</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Ready to work with us? Let's connect!</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="text-primary text-xl mr-4"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <a href="mailto:emoonwood@gmail.com" class="text-primary hover:underline">emoonwood@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="text-primary text-xl mr-4"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <p class="font-semibold">Phone</p>
+                                <a href="tel:0790686366" class="text-primary hover:underline">0790686366</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="text-primary text-xl mr-4"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <p class="font-semibold">Address</p>
+                                <p class="text-gray-600 dark:text-gray-300">Nairobi, Kenya</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="fade-in">
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium mb-2">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talent Submission Section -->
+    <section class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Talent Submission</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Join our roster of exceptional talent</p>
+            </div>
+            <form id="talentForm" class="space-y-6 fade-in">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="talentName" class="block text-sm font-medium mb-2">Full Name</label>
+                        <input type="text" id="talentName" name="talentName" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                    </div>
+                    <div>
+                        <label for="talentEmail" class="block text-sm font-medium mb-2">Email</label>
+                        <input type="email" id="talentEmail" name="talentEmail" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="talentPhone" class="block text-sm font-medium mb-2">Phone</label>
+                        <input type="tel" id="talentPhone" name="talentPhone" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                    </div>
+                    <div>
+                        <label for="talentCategory" class="block text-sm font-medium mb-2">Category</label>
+                        <select id="talentCategory" name="talentCategory" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                            <option value="">Select Category</option>
+                            <option value="actor">Actor</option>
+                            <option value="model">Model</option>
+                            <option value="presenter">Presenter</option>
+                            <option value="voice-artist">Voice Artist</option>
+                            <option value="dancer">Dancer</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label for="experience" class="block text-sm font-medium mb-2">Experience</label>
+                    <textarea id="experience" name="experience" rows="4" placeholder="Tell us about your experience, training, and notable projects..." class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700"></textarea>
+                </div>
+                <div>
+                    <label for="headshots" class="block text-sm font-medium mb-2">Headshots/Portfolio</label>
+                    <input type="file" id="headshots" name="headshots" multiple accept="image/*" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                    <p class="text-sm text-gray-500 mt-1">Upload your best headshots and portfolio images</p>
+                </div>
+                <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in">Latest News & Updates</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 fade-in">Stay informed about industry trends and opportunities</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <article class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow fade-in">
+                    <div class="bg-gray-200 dark:bg-gray-600 h-48 flex items-center justify-center">
+                        <i class="fas fa-image text-3xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">New Casting Opportunities</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Exciting new casting calls for upcoming productions. Don't miss these opportunities to showcase your talent.</p>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">January 15, 2024</div>
+                    </div>
+                </article>
+                <article class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow fade-in">
+                    <div class="bg-gray-200 dark:bg-gray-600 h-48 flex items-center justify-center">
+                        <i class="fas fa-image text-3xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Industry Workshop Series</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Join our comprehensive workshop series designed to enhance your skills and industry knowledge.</p>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">January 10, 2024</div>
+                    </div>
+                </article>
+                <article class="bg-white dark:bg-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow fade-in">
+                    <div class="bg-gray-200 dark:bg-gray-600 h-48 flex items-center justify-center">
+                        <i class="fas fa-image text-3xl text-gray-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Success Stories</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Celebrating the achievements of our talented artists and their recent accomplishments.</p>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">January 5, 2024</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 gradient-bg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 fade-in">Stay Connected</h2>
+            <p class="text-xl text-white mb-8 fade-in">Get the latest news, casting calls, and industry updates</p>
+            <form id="newsletterForm" class="max-w-md mx-auto fade-in">
+                <div class="flex">
+                    <input type="email" id="newsletterEmail" name="newsletterEmail" placeholder="Enter your email" required class="flex-1 px-4 py-3 text-base border-0 rounded-l-lg focus:ring-2 focus:ring-white focus:outline-none">
+                    <button type="submit" class="bg-white text-primary px-6 py-3 rounded-r-lg font-semibold hover:bg-gray-100 transition-colors">Subscribe</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Moonwood Entertainment</h3>
+                    <p class="text-gray-300">Premier casting agency and marketing firm showcasing Kenyan talent worldwide.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Casting</li>
+                        <li>Model Coaching</li>
+                        <li>Training</li>
+                        <li>Production</li>
+                        <li>Marketing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="#talents" class="hover:text-primary transition-colors">Our Talents</a></li>
+                        <li><a href="#projects" class="hover:text-primary transition-colors">Projects</a></li>
+                        <li><a href="#blog" class="hover:text-primary transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-primary transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+                    </div>
+                    <p class="text-gray-300">
+                        <a href="mailto:emoonwood@gmail.com" class="hover:text-primary transition-colors">emoonwood@gmail.com</a><br>
+                        <a href="tel:0790686366" class="hover:text-primary transition-colors">0790686366</a>
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 Moonwood Entertainment. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Signup Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop hidden z-50 flex items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="modalTitle" class="text-2xl font-bold">Login</h2>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="mb-4">
+                    <label for="loginEmail" class="block text-sm font-medium mb-2">Email</label>
+                    <input type="email" id="loginEmail" name="loginEmail" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <div class="mb-6">
+                    <label for="loginPassword" class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="loginPassword" name="loginPassword" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors">Login</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form hidden">
+                <div class="mb-4">
+                    <label for="signupName" class="block text-sm font-medium mb-2">Full Name</label>
+                    <input type="text" id="signupName" name="signupName" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <div class="mb-4">
+                    <label for="signupEmail" class="block text-sm font-medium mb-2">Email</label>
+                    <input type="email" id="signupEmail" name="signupEmail" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <div class="mb-4">
+                    <label for="signupPhone" class="block text-sm font-medium mb-2">Phone (Optional)</label>
+                    <input type="tel" id="signupPhone" name="signupPhone" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <div class="mb-4">
+                    <label for="signupPassword" class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <div class="mb-6">
+                    <label for="confirmPassword" class="block text-sm font-medium mb-2">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700">
+                </div>
+                <div class="mb-6">
+                    <label class="flex items-center">
+                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required class="mr-2 rounded text-primary focus:ring-primary">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">I agree to the Terms of Service and Privacy Policy</span>
+                    </label>
+                </div>
+                <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors">Create Account</button>
+            </form>
+
+            <!-- Toggle between Login/Signup -->
+            <div class="mt-6 text-center">
+                <p id="toggleText" class="text-sm text-gray-600 dark:text-gray-400">
+                    Don't have an account? 
+                    <button id="toggleAuth" class="text-primary hover:underline font-medium">Sign up here</button>
+                </p>
+            </div>
+
+            <p class="text-center text-sm text-gray-500 dark:text-gray-500 mt-4">
+                Demo: Use any information to create account or login
+            </p>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden z-50">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span id="successText">Success!</span>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode detection
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Login modal functionality
+        const loginBtn = document.getElementById('loginBtn');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        const loginForm = document.getElementById('loginForm');
+        const trendingSection = document.getElementById('trendingSection');
+        const successMessage = document.getElementById('successMessage');
+        const successText = document.getElementById('successText');
+
+        let isLoggedIn = false;
+
+        function showModal() {
+            loginModal.classList.remove('hidden');
+        }
+
+        function hideModal() {
+            loginModal.classList.add('hidden');
+        }
+
+        function showSuccessMessage(message) {
+            successText.textContent = message;
+            successMessage.classList.remove('hidden');
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 3000);
+        }
+
+        function updateLoginState(loggedIn) {
+            isLoggedIn = loggedIn;
+            if (loggedIn) {
+                loginBtn.textContent = 'Logout';
+                mobileLoginBtn.textContent = 'Logout';
+                trendingSection.classList.remove('hidden');
+                // Adjust body padding for trending section
+                document.body.style.paddingTop = '104px';
+            } else {
+                loginBtn.textContent = 'Login';
+                mobileLoginBtn.textContent = 'Login';
+                trendingSection.classList.add('hidden');
+                document.body.style.paddingTop = '64px';
+            }
+        }
+
+        loginBtn.addEventListener('click', () => {
+            if (isLoggedIn) {
+                updateLoginState(false);
+                showSuccessMessage('Logged out successfully!');
+            } else {
+                showModal();
+            }
+        });
+
+        mobileLoginBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            if (isLoggedIn) {
+                updateLoginState(false);
+                showSuccessMessage('Logged out successfully!');
+            } else {
+                showModal();
+            }
+        });
+
+        closeModal.addEventListener('click', hideModal);
+
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                hideModal();
+            }
+        });
+
+        // Auth form toggle functionality
+        const signupForm = document.getElementById('signupForm');
+        const modalTitle = document.getElementById('modalTitle');
+        const toggleAuth = document.getElementById('toggleAuth');
+        const toggleText = document.getElementById('toggleText');
+        
+        let isSignupMode = false;
+
+        function toggleAuthMode() {
+            isSignupMode = !isSignupMode;
+            
+            if (isSignupMode) {
+                // Switch to signup mode
+                modalTitle.textContent = 'Create Account';
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                toggleText.innerHTML = 'Already have an account? <button id="toggleAuthBack" class="text-primary hover:underline font-medium">Login here</button>';
+                
+                // Re-attach event listener to new button
+                document.getElementById('toggleAuthBack').addEventListener('click', toggleAuthMode);
+            } else {
+                // Switch to login mode
+                modalTitle.textContent = 'Login';
+                signupForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                toggleText.innerHTML = 'Don\'t have an account? <button id="toggleAuth" class="text-primary hover:underline font-medium">Sign up here</button>';
+                
+                // Re-attach event listener to new button
+                document.getElementById('toggleAuth').addEventListener('click', toggleAuthMode);
+            }
+        }
+
+        // Initial toggle button event listener
+        toggleAuth.addEventListener('click', toggleAuthMode);
+
+        function validatePasswords() {
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match!');
+                return false;
+            }
+            return true;
+        }
+
+        function showAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'fixed top-20 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            alertDiv.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            updateLoginState(true);
+            hideModal();
+            showSuccessMessage('Welcome back!');
+            // Reset forms
+            loginForm.reset();
+            signupForm.reset();
+            // Reset to login mode
+            if (isSignupMode) {
+                toggleAuthMode();
+            }
+        });
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (!validatePasswords()) {
+                return;
+            }
+            
+            updateLoginState(true);
+            hideModal();
+            showSuccessMessage('Account created successfully! Welcome!');
+            // Reset forms
+            loginForm.reset();
+            signupForm.reset();
+            // Reset to login mode
+            if (isSignupMode) {
+                toggleAuthMode();
+            }
+        });
+
+        // Close trending section
+        document.getElementById('closeTrending').addEventListener('click', () => {
+            trendingSection.classList.add('hidden');
+            document.body.style.paddingTop = '64px';
+        });
+
+        // Form submissions
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showSuccessMessage('Message sent successfully!');
+            e.target.reset();
+        });
+
+        document.getElementById('talentForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showSuccessMessage('Application submitted successfully!');
+            e.target.reset();
+        });
+
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showSuccessMessage('Subscribed successfully!');
+            e.target.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Initialize body padding
+        document.body.style.paddingTop = '64px';
+    </script>
+</body>
+</html>
